@@ -1,0 +1,3 @@
+flag1 = i-CES{the_first_pirate_of_the_one_piece_universe_JOYBOY}
+secretkey = erased_from_history_by_world_government
+flag2 = i-CES{the_4_road_poneglyph_leads_t0_the_secrects_of_void_century}

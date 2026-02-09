@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Guardian of the Road Poneglyph</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Ancient stone texture feel */
+      .poneglyph-bg {
+        background-color: #1a0a0a;
+        background-image: radial-gradient(#2d0a0a 0.5px, transparent 0.5px);
+        background-size: 20px 20px;
+      }
+      .stone-border {
+        border-color: #4a1a1a;
+      }
+      .ancient-text {
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+  </head>
+  <body class="poneglyph-bg text-red-100 h-screen flex flex-col ancient-text">
+    <header
+      class="p-6 text-center border-b stone-border bg-[#2d0a0a] shadow-lg"
+    >
+      <h1 class="text-3xl text-red-600 font-bold tracking-[0.2em] uppercase">
+        The Road Poneglyph
+      </h1>
+      <p class="text-xs text-red-300 mt-2 opacity-70">
+        Decipher the secret of Laugh Tale...
+      </p>
+    </header>
+
+    <main
+      id="chat-box"
+      class="flex-1 overflow-y-auto p-4 space-y-4 max-w-2xl mx-auto w-full scrollbar-hide"
+    >
+      <div
+        class="bg-[#3d0f0f] p-4 rounded-sm border-l-4 border-red-700 text-sm italic text-red-200 shadow-inner"
+      >
+        The ancient guardian stands watch. The red stone glows with a faint,
+        dangerous light.
+      </div>
+    </main>
+
+    <footer class="p-4 bg-[#2d0a0a] border-t stone-border">
+      <div class="max-w-2xl mx-auto flex gap-2">
+        <input
+          id="user-input"
+          type="text"
+          placeholder="Type your translation..."
+          class="flex-1 bg-[#1a0a0a] border stone-border rounded-sm px-4 py-3 focus:outline-none focus:ring-1 focus:ring-red-600 text-red-100 placeholder-red-900"
+          onkeydown="if (event.key === 'Enter') send();"
+        />
+        <button
+          onclick="send()"
+          class="bg-red-800 hover:bg-red-700 text-red-100 px-8 py-3 rounded-sm font-bold transition-all border border-red-600 shadow-md"
+        >
+          READ
+        </button>
+      </div>
+      <div style="text-align: center;margin-top:10px;font-weight: bold;">
+        Challenge by
+      <a href="https://sudarshandevkota.com.np" target="_blank" style="color:blueviolet;">therawbit</a>
+      </div>
+      
+    </footer>
+
+    <script>
+      async function send() {
+        const input = document.getElementById("user-input");
+        const box = document.getElementById("chat-box");
+        if (!input.value) return;
+
+        // Add user message (The seeker)
+        box.innerHTML += `
+          <div class="text-right">
+            <span class="inline-block bg-[#4a1a1a] p-3 rounded-sm border border-red-900 text-sm">
+              <strong class="text-red-400 block text-[10px] uppercase mb-1">Seeker</strong>
+              ${input.value}
+            </span>
+          </div>`;
+
+        const userMsg = input.value;
+        input.value = "";
+        box.scrollTop = box.scrollHeight;
+
+        try {
+          // Fetch from Flask
+          const res = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMsg }),
+          });
+          const data = await res.json();
+
+          // Add bot message (The Poneglyph)
+          box.innerHTML += `
+            <div class="text-left">
+              <span class="inline-block bg-[#1a0a0a] p-3 rounded-sm border border-red-700 text-sm text-red-300">
+                <strong class="text-red-600 block text-[10px] uppercase mb-1">Guardian</strong>
+                ${data.response}
+              </span>
+            </div>`;
+        } catch (e) {
+          box.innerHTML += `<div class="text-center text-red-900 text-xs">The stone remains silent (Connection Error)</div>`;
+        }
+
+        box.scrollTop = box.scrollHeight;
+      }
+    </script>
+  </body>
+</html>

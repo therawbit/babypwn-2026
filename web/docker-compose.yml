@@ -1,0 +1,27 @@
+services:
+  one-piece:
+    build:
+      context: ./one-piece
+      dockerfile: Dockerfile
+    container_name: onepiece
+    ports:
+      - "8001:80"
+    restart: unless-stopped
+
+  securenote:
+    build:
+      context: ./securenote
+      dockerfile: Dockerfile
+    container_name: securenote
+    ports:
+      - "8002:8080"
+    restart: unless-stopped
+
+  ai:
+    build:
+      context: ./ai
+      dockerfile: Dockerfile
+    container_name: ai
+    ports:
+      - "8003:5000"
+    restart: unless-stopped

@@ -1,0 +1,9 @@
+Zoro: Hey, Robin.
+Robin: Yes, How may I help you ?
+Zoro: Can you encrypt this "This is a secret message to the people of the world. We are anonymous."
+Robin: Here you go: 201a0b00130a01135654010710410606135a11011112540652475854060a161313175c471817421c5543065b5254050d015f075c1360115203015643135d581a0b0f1c46105c
+Zoro: Thanks. But how do I decode it what is the secret. 
+Robin: I can't tell you but you know if You and I are different we can create 1.
+Zoro: Gotcha. Also I was supposed to get something from you. 
+Robin: Take this 201a075340061141520052041f5204525a44541b4f307630094b07062d53006c541a00681c415601043c42556817001b03470c0f 
+Zoro: Thanks See ya.
